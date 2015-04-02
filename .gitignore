@@ -5,3 +5,4 @@ obj
 *.pdb
 *.xml
 *.exe.*
+!release/*.exe
