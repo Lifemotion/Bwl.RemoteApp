@@ -1,10 +1,15 @@
-﻿Module Main
+﻿Module HostMain
 
-    Dim core As RemoteAppCore
+    Public Sub RemoteAppCoreWriter(arg As String, color As ConsoleColor)
+        Console.ForegroundColor = color
+        Console.WriteLine(arg)
+    End Sub
+
+    Dim core As HostCore
 
     Public Sub Main()
         Console.Title = "RemoteApp Host"
-        core = New RemoteAppCore()
+        core = New HostCore(AddressOf RemoteAppCoreWriter)
         core.Start(3200)
         While True
             Threading.Thread.Sleep(10)

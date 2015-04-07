@@ -6,3 +6,4 @@ obj
 *.xml
 *.exe.*
 !release/*.exe
+.*

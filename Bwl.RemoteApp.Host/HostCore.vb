@@ -1,14 +1,21 @@
-﻿Public Class RemoteAppCore
+﻿Public Delegate Sub RemoteAppCoreWriter(arg As String, color As ConsoleColor)
+
+Public Class HostCore
     Private Class ClientInfo
         Public Property Username As String = ""
         Public Property Group As String = ""
     End Class
 
+    Private _writer As RemoteAppCoreWriter
+
+    Sub New(writer As RemoteAppCoreWriter)
+        _writer = writer
+    End Sub
+
     Private WithEvents _netServer As New NetServer
 
     Private Sub Write(arg As String, Optional color As ConsoleColor = ConsoleColor.Gray)
-        Console.ForegroundColor = color
-        Console.WriteLine(arg)
+        _writer.Invoke(arg, color)
     End Sub
 
     Public Sub Start(port As Integer)

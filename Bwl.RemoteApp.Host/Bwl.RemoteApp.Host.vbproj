@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{81231F81-2E09-4836-B3E7-7BF8C01E5D7E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>Bwl.RemoteApp.Main</StartupObject>
+    <StartupObject>Bwl.RemoteApp.HostMain</StartupObject>
     <RootNamespace>Bwl.RemoteApp</RootNamespace>
     <AssemblyName>rapp-host</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -72,8 +72,8 @@
     <Compile Include="..\refs\NetServer.vb">
       <Link>net\NetServer.vb</Link>
     </Compile>
-    <Compile Include="RemoteAppCore.vb" />
-    <Compile Include="Main.vb" />
+    <Compile Include="HostCore.vb" />
+    <Compile Include="HostMain.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -108,7 +108,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
