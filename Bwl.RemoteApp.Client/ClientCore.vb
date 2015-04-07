@@ -116,6 +116,16 @@ Class ClientCore
                     RunProcess(client, RunCommand, RunArgs)
                     client.Disconnect()
                 End If
+            Case "autorun"
+                Write("RemoteAppClient: Autorun")
+                Write("Target: " + Target)
+                Write("Command: " + RunCommand)
+                Write("Args: " + RunArgs)
+                Dim client = Connect(Target)
+                If client IsNot Nothing Then
+                    SetAutorun(client, RunCommand, RunArgs)
+                    client.Disconnect()
+                End If
             Case Else
                 Write("RemoteAppClient: Help")
                 Write("")
@@ -156,7 +166,12 @@ Class ClientCore
         Write("Process Stopped ")
 
     End Sub
-
+    Private Sub SetAutorun(client As NetClient, cmd As String, args As String)
+        If args Is Nothing Then args = ""
+        Dim msg As New NetMessage("S", "autorun", cmd, args)
+        client.SendMessageWaitAnswer(msg, "autorun-ok", 60)
+        Write("Autorun Set ")
+    End Sub
     Private Sub RunProcess(client As NetClient, cmd As String, args As String)
         If args Is Nothing Then args = ""
         Dim msg As New NetMessage("S", "run", cmd, args)

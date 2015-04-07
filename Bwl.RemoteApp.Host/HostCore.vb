@@ -23,6 +23,19 @@ Public Class HostCore
         Write("Started RemoteApp Host on port: " + port.ToString, ConsoleColor.Cyan)
         Write("AppPath: """ + DataPath + """", ConsoleColor.Gray)
         Write("Waiting for connections...", ConsoleColor.Cyan)
+        Try
+            Try
+                Dim text = IO.File.ReadAllText(".autorun").Split("%")
+                If text.Length > 1 Then
+                    RunProcess(text(0), text(1))
+                Else
+                    RunProcess(text(0), "")
+                End If
+            Catch ex As Exception
+            End Try
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private prc As Process
@@ -105,7 +118,14 @@ Public Class HostCore
                 If message.Part(0) = "run" Then
                     RunProcess(message.Part(1), message.Part(2))
                     client.SendMessage(New NetMessage("S", "run-ok"))
+                End If
 
+                If message.Part(0) = "autorun" Then
+                    Try
+                        IO.File.WriteAllText(".autorun", message.Part(1) + "%" + message.Part(2))
+                    Catch ex As Exception
+                    End Try
+                    client.SendMessage(New NetMessage("S", "autorun-ok"))
                 End If
             End If
         End SyncLock
